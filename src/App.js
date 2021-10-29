@@ -1,16 +1,19 @@
-import React from 'react';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Dashboard from './Containers/Dashboard/Dashboard.component';
+import DetailPage from './Containers/DetailPage/DetailPage.component';
 
-import './App.css';
-import SearchInput from './Components/SearchInput/SearchInput.component';
-import MovieList from './Components/MovieList/MovieList.component';
-
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <SearchInput />
-      <MovieList />
-    </div>
+    <Router>
+        <Switch>
+          <Route path="/detail/:id" component={DetailPage} />
+          <Route path="/" component={Dashboard} />
+        </Switch>
+    </Router>
   );
 }
-
-export default App;

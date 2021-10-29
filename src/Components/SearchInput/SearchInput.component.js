@@ -1,41 +1,53 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { AutoComplete, Input } from 'antd';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { set, setKeyword } from '../../redux/reducer';
 import { getMovieByTitle } from '../../Services';
 
 const _mapResultToOptions = (result) => {
-	return result.map(res => ({ value: res.Title }));
+	return result.map(res => ({value: res.Title, id: res.imdbID}));
 };
 
-const OnSearch = async (input, setResult, setKeyword) => {
+const _onSearch = async (input, setResult, setKeyword) => {
 	setKeyword(input);
 	const result = await getMovieByTitle(input);
-	if(result.Response === 'True') {
-		setResult(result.Search)
+	if (result.Response === 'True') {
+		setResult(result.Search);
 	}
-	if(!input.length) setResult([]);
+	if (!input.length) setResult([]);
 };
 
-const OnPressSearch = (result, keyword, dispatch) => {
-  dispatch(set(result));
-  dispatch(setKeyword(keyword));
+const _onSelect = (option, history) => {
+	history.push(`/detail/${option.id}`);
 };
 
-const SearchInput = (props) => {
+const _onPressSearch = (result, keyword, dispatch) => {
+	dispatch(set(result));
+	dispatch(setKeyword(keyword));
+};
+
+const SearchInput = () => {
 	const [result, setResult] = useState([]);
 	const [keyword, setKeyword] = useState('');
 	const dispatch = useDispatch();
-	return (<AutoComplete
-		options={_mapResultToOptions(result)}
-		style={{ width: '100%' }}
-		onSelect={() => {}}
-		onSearch={(input) => OnSearch(input, setResult, setKeyword)}
-	>
-		<Input.Search size={'large'} placeholder={'Movie title'} enterButton onSearch={() => OnPressSearch(result, keyword, dispatch)}/>
-	</AutoComplete>)
+	const history = useHistory();
+
+	return (
+		<AutoComplete
+			options={_mapResultToOptions(result)}
+			style={{width: '100%'}}
+			onSelect={(value, option) => _onSelect(option, history)}
+			onSearch={(input) => _onSearch(input, setResult, setKeyword)}
+		>
+			<Input.Search
+				size={'large'}
+				placeholder={'Movie title'}
+				enterButton
+				onSearch={() => _onPressSearch(result, keyword, dispatch)}
+			/>
+		</AutoComplete>);
 };
 
 export default SearchInput;
