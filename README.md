@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# The Open Movie Database Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is project for React App to show the List of Movies fetched from The Open Movie Database API (http://www.omdbapi.com/)
+
+## Downloading The App
+
+You could either clone the project from the Git repository or download the project as plain directory.
 
 ## Available Scripts
 
@@ -19,52 +23,41 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Using The App
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Dashboard Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The dashboard would display a search input component for searching movie by keyword.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Alt text](readmeAssets/1.%20plain%20dashboard.png "dashboard")
 
-### `yarn eject`
+### Searching by Keyword
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+When you are making input into in search input field, there would be auto suggestion for possible movie options.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Alt text](readmeAssets/2.%20suggestion.png "autosuggest")
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Displaying Movie List by Search Keyword
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If you press enter on the search input field, the search process would begin and the result would be displayed below the search input.
 
-## Learn More
+![Alt text](readmeAssets/3.%20movie%20list.png "movielist")
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Zooming on Movie Poster
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The movie avatar is clickable and could be zoomed as a modal popup.
 
-### Code Splitting
+![Alt text](readmeAssets/4.%20poster%20modal.png "poster")
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Infinite Scrolling Behaviour
 
-### Analyzing the Bundle Size
+Initial fetch is for 10 items. If the result is longer than 10, scrolling to the bottom would load more result. Every load would add 10 results to the list.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Alt text](readmeAssets/5.%20infinitescroll.gif "infinitescroll")
 
-### Making a Progressive Web App
+### Navigating to Detail Page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+You could see more detail about each movie by either clicking on the title in search input auto suggest or by clicking on title in movie list.
 
-### Advanced Configuration
+![Alt text](readmeAssets/6.%20detail%20page.png "detailpage")
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

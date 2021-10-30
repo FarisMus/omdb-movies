@@ -33,8 +33,10 @@ const MovieList = () => {
     if (movieList.length <= 10) setPage(1);
   }, [movieList]);
 
+  console.log(movieList);
+
   window.onscroll = async () => {
-    if (_isBottomReached() && movieList.length > 10) {
+    if (_isBottomReached() && movieList.length >= 10) {
       await _loadMoreMovies(dispatch, page, setPage, keyword);
     }
   };
