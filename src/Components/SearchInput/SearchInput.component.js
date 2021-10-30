@@ -3,51 +3,57 @@ import { AutoComplete, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { set, setKeyword } from '../../redux/reducer';
-import { getMovieByTitle } from '../../Services';
+import Constants from '../../Constants/Constants';
+import { set, setKeyword } from '../../redux/Reducer/reducers';
+import { getMovieByTitle } from '../../Services/services';
 
-const _mapResultToOptions = (result) => {
-	return result.map(res => ({value: res.Title, id: res.imdbID}));
+export const _mapResultToOptions = (results) => {
+  return results.map(result => ({value: result.Title, id: result.imdbID}));
 };
 
-const _onSearch = async (input, setResult, setKeyword) => {
-	setKeyword(input);
-	const result = await getMovieByTitle(input);
-	if (result.Response === 'True') {
-		setResult(result.Search);
-	}
-	if (!input.length) setResult([]);
+export const _onSearch = async (input, setResult, setKeyword) => {
+  setKeyword(input);
+
+  if (!input.length) {
+    setResult([]);
+    return;
+  }
+
+  const result = await getMovieByTitle(input);
+  if (result.Response === Constants.API_RESPONSE.TRUE) {
+    setResult(result.Search);
+  }
 };
 
-const _onSelect = (option, history) => {
-	history.push(`/detail/${option.id}`);
+export const _onSelect = (option, history) => {
+  history.push(`/detail/${option.id}`);
 };
 
-const _onPressSearch = (result, keyword, dispatch) => {
-	dispatch(set(result));
-	dispatch(setKeyword(keyword));
+export const _onPressSearch = (result, keyword, dispatch) => {
+  dispatch(set(result));
+  dispatch(setKeyword(keyword));
 };
 
 const SearchInput = () => {
-	const [result, setResult] = useState([]);
-	const [keyword, setKeyword] = useState('');
-	const dispatch = useDispatch();
-	const history = useHistory();
+  const [result, setResult] = useState([]);
+  const [keyword, setKeyword] = useState('');
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-	return (
-		<AutoComplete
-			options={_mapResultToOptions(result)}
-			style={{width: '100%'}}
-			onSelect={(value, option) => _onSelect(option, history)}
-			onSearch={(input) => _onSearch(input, setResult, setKeyword)}
-		>
-			<Input.Search
-				size={'large'}
-				placeholder={'Movie title'}
-				enterButton
-				onSearch={() => _onPressSearch(result, keyword, dispatch)}
-			/>
-		</AutoComplete>);
+  return (
+    <AutoComplete
+      options={_mapResultToOptions(result)}
+      style={{width: '100%'}}
+      onSelect={(value, option) => _onSelect(option, history)}
+      onSearch={(input) => _onSearch(input, setResult, setKeyword)}
+    >
+      <Input.Search
+        size={'large'}
+        placeholder={'Movie title'}
+        enterButton
+        onSearch={() => _onPressSearch(result, keyword, dispatch)}
+      />
+    </AutoComplete>);
 };
 
 export default SearchInput;

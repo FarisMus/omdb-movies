@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Movie Modal Component 1`] = `
+<ModalComponent
+  onCancel={[MockFunction]}
+  onOk={[MockFunction]}
+  title="Batman"
+  visible={true}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <ImageComponent
+      preview={false}
+      src="batman.png"
+    />
+  </div>
+</ModalComponent>
+`;
